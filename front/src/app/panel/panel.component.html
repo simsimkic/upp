@@ -1,0 +1,13 @@
+<div>
+  <br>
+  <button (click)='getTasks()'>Get my tasks</button>
+  <p *ngFor="let task of tasks">
+    {{ task.name }}
+    <button (click)="seeTask(task.taskId, task.name)">See task</button>
+  </p>
+  <p *ngIf="noTasks">0 tasks assigned to you!</p>
+
+  <button (click)='createMagazine()' *ngIf="role == 'editor'">Create new magazine</button><br><br>
+  <button (click)='seeUsers()' *ngIf="role=='admin'">See all users</button>
+
+</div>

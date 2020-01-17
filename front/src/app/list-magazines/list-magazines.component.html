@@ -1,0 +1,14 @@
+<p>Magazines:</p>
+<p *ngIf="magazines.length == 0">No magazines right now.</p>
+<ol>
+  <li *ngFor="let m of magazines">
+    <div>
+      Title: {{ m.title }} <br>
+      ISSN: {{ m.issn }} <br>
+      Scientific fields: {{ m.scientificFields }} <br>
+      Payment method:
+      <span *ngIf="m.paymentType=='open_access'">Open access, it's FREE :)</span>
+      <span *ngIf="m.paymentType=='subscription'">You need to subscribe!</span><br>
+    </div>
+  </li>
+</ol>

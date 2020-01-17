@@ -1,0 +1,11 @@
+<div>
+  <p>Login</p>
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value, loginForm)" ngNativeValidate>
+    <label for="username">Username: </label>
+    <input type="text" name="username" ngModel><br>
+    <label for="password">Password: </label>
+    <input type="password" name="password" ngModel><br>
+    <input type="submit" value="Login">
+  </form>
+</div>
+

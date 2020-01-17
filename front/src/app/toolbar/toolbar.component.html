@@ -1,0 +1,7 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" [routerLink]="['/panel']" *ngIf="loggedIn">Panel</a>
+  <a class="navbar-brand" [routerLink]="['/magazines']" *ngIf="!loggedIn">Magazines</a>
+  <a class="navbar-brand" [routerLink]="['/registration']" *ngIf="!loggedIn">Registrate</a><br>
+  <a class="navbar-brand" [routerLink]="['/login']" *ngIf="!loggedIn">Login</a>
+  <a class="navbar-brand" (click)="logout()" *ngIf="loggedIn"  href="/">Logout</a>
+</nav>

@@ -1,0 +1,50 @@
+<p>Task: {{ taskName }}</p>
+<div *ngIf="taskName!='add-editors-reviewers'">
+  <p *ngFor="let d of data | keyvalue" >
+    {{ d.key }}: {{ d.value }}
+  </p>
+</div>
+
+<div *ngIf="taskName=='update-data'">
+  <form #f="ngForm" (ngSubmit)="update(f.value, f)" ngNativeValidate>
+    <div *ngFor="let field of formFields" >
+        <label for={{field.id}}>{{field.label}}</label>
+        <input type="text" name={{field.id}} ngModel *ngIf="field.type.name=='string'" >
+        <input type="checkbox" name={{field.id}} ngModel  *ngIf="field.type.name=='boolean'">
+        <input type="number" name={{field.id}} ngModel  *ngIf="field.type.name=='long'">
+        <select name={{field.id}} *ngIf="field.type.name=='enum'" ngModel multiple>
+          <option *ngFor="let val of enumValues" value={{val}}>
+            {{field.type.values[val]}}
+          </option>
+        </select>
+    </div>
+    <input type="submit">
+  </form>
+</div>
+
+<p *ngIf="taskName=='add-editors-reviewers'">Set editors and reviewers for magazine '{{ magazineTitle }}'</p>
+<form *ngIf="taskName=='add-editors-reviewers'"  #f="ngForm" (ngSubmit)="add(f.value, f)" ngNativeValidate>
+  <ul>
+    <li *ngFor="let d of data['editors']">
+      <label for='editors-{{d.scientificField}}'>Editors for field {{d.scientificField }}</label>
+      <select name='editors-{{ d.scientificField }}' ngModel  >
+        <option *ngFor="let e of d.editors" value={{e.username}}>
+          {{ e.name }} {{ e.surname }}
+        </option>
+      </select><br><br>
+    </li>
+  </ul>
+  <label for='reviewers'>Reviewers</label>
+  <select name='reviewers' ngModel multiple>
+    <option *ngFor="let r of data['reviewers']" value={{r.username}}>
+      {{ r.name }} {{ r.surname }}
+    </option>
+    <option *ngFor="let r of data['editors']" value={{r.username}}>
+      {{ r.name }} {{ r.surname }}
+    </option>
+  </select><br><br>
+  <input type="submit">
+</form>
+
+<button (click)="approved()" *ngIf="taskName=='reviewer-approval' || taskName=='magazine-approval'">Approve</button>
+<button (click)="denied()" *ngIf="taskName=='reviewer-approval' || taskName=='magazine-approval'">Deny</button>
